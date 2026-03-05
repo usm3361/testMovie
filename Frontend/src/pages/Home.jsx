@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useStore } from "../store/useStore";
 import { useDebounce } from "../hooks/useDebounce";
+import MovieCard from "../components/MovieCard";
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   const { movies, isLoading, error, searchQuery, setSearchQuery, loadMovies } =
@@ -23,23 +25,18 @@ const Home = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-
-    <div>
-       <h1>Movie Night Picker</h1>
-      <input 
-        type="text" 
-        placeholder="Search movies by title or genre..." 
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
-      
+    <div className="home-page">
+      <header>
+        <h1>Movie Night Picker</h1>
+        <SearchBar />
+      </header>
       <div className="movies-grid">
-        {filteredMovies.map(movie => (
+        {filteredMovies.map((movie) => (
           <MovieCard key={movie.imdbID} movie={movie} />
         ))}
-      </div> 
+      </div>
     </div>
-  )
+  );
 };
 
 export default Home;
